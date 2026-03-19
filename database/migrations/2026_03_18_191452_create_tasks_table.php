@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_task');
+            $table->text('deskripsi')->nullable();
+            $table->enum('level',['low','medium','high'])->default('low');
+            $table->enum('status',['on_progres','complete'])->default('on_progres');
+            $table->foreignId('karyawan_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('project_id')->constrained('projects')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->timestamps();
         });
     }
