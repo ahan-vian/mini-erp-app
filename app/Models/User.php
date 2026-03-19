@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Project;
+use App\Models\Task;
+use App\Models\Absensi;
 
 class User extends Authenticatable
 {
@@ -21,6 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'no_hp',
+        'role'
     ];
 
     /**
@@ -42,4 +47,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function projects(){
+        return $this->hasMany(Project::class);
+    }
+    
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
+
+    public function absensis(){
+        return $this->hasMany(Absensi::class);
+    }
+    
 }
