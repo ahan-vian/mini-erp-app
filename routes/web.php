@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/clock_in',[AbsensiController::class, 'clock_in'])->name('clock_in');
+Route::post('/clock_out',[AbsensiController::class, 'clock_out'])->name('clock_out');
 
 require __DIR__.'/auth.php';

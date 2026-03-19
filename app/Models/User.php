@@ -49,15 +49,15 @@ class User extends Authenticatable
     ];
 
     public function projects(){
-        return $this->hasMany(Project::class);
+        return $this->hasMany(Project::class, 'manager_id');
     }
     
     public function tasks(){
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'karyawan_id');
     }
 
     public function absensis(){
-        return $this->hasMany(Absensi::class);
+        return $this->hasMany(Absensi::class, 'karyawan_id');
     }
     
 }
