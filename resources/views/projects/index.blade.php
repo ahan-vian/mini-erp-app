@@ -20,6 +20,7 @@
                             <th class="py-2">Nama Proyek</th>
                             <th class="py-2">Tenggat Waktu</th>
                             <th class="py-2">Manager (ID)</th>
+                            <th class="py-2">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +30,26 @@
                                 <td class="py-2">{{ $project->nama_project}}</td>
                                 <td class="py-2">{{ $project->tanggal_selesai}}</td>
                                 <td class="py-2">{{ $project->user->name}} (ID:{{ $project->manager_id }})</td>
+                                <td class="py-2 flex space-x-2 gap-2">
+                                    <a href="{{ route('project.show', $project->id) }}"
+                                        class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 shadow-sm">
+                                        Detail
+                                    </a>
+                                    <a href="{{ route('project.edit', $project->id) }}"
+                                        class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600 shadow-sm">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('project.destroy', $project->id) }}" method="POST"
+                                        onsubmit="return confirm('Apakah anda yakin ingin menghapus proyek ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 shadow-sm">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
