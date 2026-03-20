@@ -21,7 +21,7 @@
                     @csrf
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Nama Tugas (Task)</label>
-                        <input type="text" name="nama_task" id="nama_project" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-ouline" placeholder="Contoh: Buat fitur Login">
+                        <input type="text" name="nama_task" id="nama_task" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-ouline" placeholder="Contoh: Buat fitur Login">
                     </div>
 
                     <div class="mb-4">

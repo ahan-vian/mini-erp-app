@@ -49,7 +49,7 @@ class TaskController extends Controller
             'tanggal_mulai'=>'required|date',
             'tanggal_selesai'=>'required|date',
         ]);
-
+        
         Task::create([
             'nama_task'=>$request->nama_task,
             'deskripsi'=>$request->deskripsi,
@@ -73,35 +73,48 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $tasks)
+    public function edit(Task $task)
     {
-        return view('Task.edit', compact('tasks'));
+        $projects = Project::all();
+        $semua_staff = User::where('role','staff')->get();
+        return view('tasks.edit', compact('task','semua_staff','projects'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Task $tasks)
+    public function update(Request $request, Task $task)
     {
-        $request->validate([
-            'nama_task'=>'required',
-            'deskripsi'=>'required',
-            'level'=>'required',
-            'karyawan_id'=>'required',
-            'project_id'=>'required',
-            'tanggal_mulai'=>'required|date',
-            'tanggal_selesai'=>'required|date',
-        ]);
+        $user = Auth::user();
 
-        $tasks->update([
-            'nama_task'=>$request->nama_task,
-            'deskripsi'=>$request->deskripsi,
-            'level'=>$request->level,
-            'tanggal_mulai'=>$request->tanggal_mulai,
-            'tanggal_selesai'=>$request->tanggal_selesai,
-            'karyawan_id'=>$request->karyawan_id,
-            'project_id'=>$request->project_id,
-        ]);
+        if($user->role == 'manager'){
+            $request->validate([
+                'nama_task'=>'required',
+                'deskripsi'=>'required',
+                'level'=>'required',
+                'status'=>'required',
+                'karyawan_id'=>'required',
+                'project_id'=>'required',
+                'tanggal_mulai'=>'required|date',
+                'tanggal_selesai'=>'required|date',
+            ]);
+            $task->update([
+                'nama_task'=>$request->nama_task,
+                'deskripsi'=>$request->deskripsi,
+                'level'=>$request->level,
+                'status'=>$request->status,
+                'tanggal_mulai'=>$request->tanggal_mulai,
+                'tanggal_selesai'=>$request->tanggal_selesai,
+                'karyawan_id'=>$request->karyawan_id,
+                'project_id'=>$request->project_id,
+            ]);
+        }
+        else{
+            $request->validate([
+                'status'=> 'required'
+            ]);
+
+            $task->update([
+                'status'=>$request->status
+            ]);
+        }
         return redirect()->route('tasks.index')->with('success','Tugas Berhasil di Update/Edit');
     }
 

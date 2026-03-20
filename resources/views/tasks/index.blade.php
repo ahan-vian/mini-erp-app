@@ -49,16 +49,17 @@
                                         class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600 shadow-sm">
                                         Edit
                                     </a>
-
-                                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST"
-                                        onsubmit="return confirm('Apakah anda yakin ingin menghapus tugas ini?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 shadow-sm">
-                                            Hapus
-                                        </button>
-                                    </form>
+                                    @if (Auth::user()->role == 'manager')
+                                        <form action="{{ route('tasks.destroy', $task->id) }}" method="POST"
+                                            onsubmit="return confirm('Apakah anda yakin ingin menghapus tugas ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 shadow-sm">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
