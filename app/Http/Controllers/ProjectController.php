@@ -56,17 +56,26 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        return view('projects.edit', compact('project'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'nama_project'=>'required',
+            'deskripsi_project'=>'required',
+            'tanggal_mulai'=>'required|date',
+            'tanggal_selesai'=>'required|date'
+        ]);
+
+        $project->update([
+            'nama_project'=> $request->nama_project,
+            'deskripsi_project'=> $request->deskripsi_project,
+            'tanggal_mulai'=> $request->tanggal_mulai,
+            'tanggal_selesai'=> $request->tanggal_selesai,
+        ]);
+        return redirect()->route('project.index')->with('success','Proyek Berhasil diperbarui');
     }
 
     /**
