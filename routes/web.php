@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/clock_in',[AbsensiController::class, 'clock_in'])->name('clock_in');
     Route::post('/clock_out',[AbsensiController::class, 'clock_out'])->name('clock_out');
     Route::resource('project', ProjectController::class);
+    Route::resource('tasks', TaskController::class);
 });
 
 
