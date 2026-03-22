@@ -15,6 +15,7 @@ class Task extends Model
         'deskripsi',
         'level',
         'status',
+        'bukti_kerja',
         'karyawan_id',
         'project_id',
         'tanggal_mulai',
