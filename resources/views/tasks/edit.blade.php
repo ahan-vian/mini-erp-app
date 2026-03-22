@@ -17,7 +17,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('tasks.update', $task->id) }}" method="post">
+                <form action="{{ route('tasks.update', $task->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     @if (Auth::user()->role == 'manager')
@@ -52,7 +52,8 @@
                                     class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline">
                                     <option value="">--Pilih Staff--</option>
                                     @foreach ($semua_staff as $staff)
-                                        <option value="{{ $staff->id }}" {{ $task->karyawan_id == $staff->id ? 'selected' : '' }}>{{ $staff->name }}</option>
+                                        <option value="{{ $staff->id }}" {{ $task->karyawan_id == $staff->id ? 'selected' : '' }}>
+                                            {{ $staff->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -106,6 +107,26 @@
                                 <option value="complete" {{ $task->status == 'complete' ? 'selected' : '' }}>Completed
                                 </option>
                             </select>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Unggah Bukti Kerja (Opsional)</label>
+
+                            @if($task->bukti_kerja)
+                                <div class="mb-2 text-sm text-gray-600 flex items-center p-2 bg-gray-100 rounded">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    Bukti saat ini: {{ basename($task->bukti_kerja) }}
+                                    <span class="text-xs text-gray-400 ml-1">(Mengunggah file baru akan mengganti file ini)</span>
+                                </div>
+                            @endif
+
+                            <input type="file" name="bukti_kerja" id="bukti_kerja"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline bg-white">
+                            <p class="text-xs text-gray-500 mt-1">Format: PDF, JPG, PNG, atau ZIP. Maksimal 10MB.</p>
                         </div>
                     @endif
 
