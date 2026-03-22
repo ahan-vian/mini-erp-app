@@ -13,14 +13,15 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index( Request $request)
     {
         $user = Auth::user();
+        $search = $request->search;
         if($user->role == 'manager'){
-            $tasks = Task::all();
+            $tasks = Task::where('nama_task', 'like', '%' . $search . '%')->paginate(5);
         }
         else{
-            $tasks = Task::where('karyawan_id', $user->id)->get();
+            $tasks = Task::where('karyawan_id', $user->id)->where('nama_task', 'like', '%' . $search . '%')->paginate(5);
         }
         return view('tasks.index', compact('tasks'));
     }

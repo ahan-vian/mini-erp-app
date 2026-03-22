@@ -8,6 +8,21 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <form method="GET" action="{{ route('tasks.index') }}" class="mb-4 flex items-center space-x-2">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama tugas..."
+                        class="shadow appearance-none border rounded w-full md:w-1/3 py-2 px-3 text-gray-700 leading-tight focus:shadow-outline">
+
+                    <button type="submit"
+                        class="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded shadow">
+                        Cari
+                    </button>
+
+                    @if(request('search'))
+                        <a href="{{ route('tasks.index') }}" class="text-red-500 hover:text-red-700 text-sm ml-2 underline">
+                            Clear
+                        </a>
+                    @endif
+                </form>
                 <a href="{{ route('tasks.create') }}"
                     class="bg-blue-500 text-white px-4 py-2 rounded shadow mb-4 inline-block hover:bg-blue-600">
                     + Tambah Tugas
@@ -65,6 +80,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-6">
+                    {{ $tasks->appends(['search' => request('search')])->links() }}
+                </div>
             </div>
         </div>
     </div>
