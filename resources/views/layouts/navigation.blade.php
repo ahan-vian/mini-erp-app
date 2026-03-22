@@ -17,6 +17,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
+                    <x-nav-link :href="route('absensi')" :active="request()->routeIs('absensi')">
+                        {{ __('Absensi') }}
+                    </x-nav-link>
+
                     @if(Auth::user()->role == 'manager')
                         <x-nav-link :href="route('project.index')" :active="request()->routeIs('projects.*')">
                             {{ __('Proyek') }}
@@ -88,6 +92,10 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('absensi')" :active="request()->routeIs('absensi')">
+                {{ __('Absensi') }}
             </x-responsive-nav-link>
 
             @if(Auth::user()->role == 'manager')
