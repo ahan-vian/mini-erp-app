@@ -23,10 +23,12 @@
                         </a>
                     @endif
                 </form>
-                <a href="{{ route('tasks.create') }}"
-                    class="bg-blue-500 text-white px-4 py-2 rounded shadow mb-4 inline-block hover:bg-blue-600">
-                    + Tambah Tugas
-                </a>
+                @if (Auth::user()->role == 'manager')
+                    <a href="{{ route('tasks.create') }}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded shadow mb-4 inline-block hover:bg-blue-600">
+                        + Tambah Tugas
+                    </a>
+                @endif
 
                 <table class="w-full text-left border-collapse mt-4">
                     <thead>
